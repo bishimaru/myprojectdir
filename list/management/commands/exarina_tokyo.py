@@ -20,7 +20,7 @@ import tempfile
 import os.path
 import numpy as np
 from requests import models
-from ... models import SlotData
+from ... models import SlotData, TotalPay
 
 
 # 引数にグラフ画像を入れて目盛りの数値を取得
@@ -135,7 +135,7 @@ class Command(BaseCommand):
         # print(title)
         # print(number)
         # print(scale_number('/Users/yamamotokenta/Documents/Pictures/エクスアリーナ東京グラフ画像.gif'))
-
+        total = 0
         for i in range(650, 1200):
 
             # urlを取得
@@ -157,6 +157,7 @@ class Command(BaseCommand):
                 data["number"] = nb
                 payout = get_graph_img(url)
                 data['payout'] = payout
+                total += payout
                 now = datetime.datetime.now()
 
                 d = SlotData(
@@ -174,7 +175,13 @@ class Command(BaseCommand):
                     payout=data['payout'],
 
                 )
+
                 d.save()
+        p = TotalPay(
+            store_name='エクスアリーナ東京',
+            date=now,
+            totalpay=total
+        )
 
         # url_img = 'screen.png'
         # img = Image.open(

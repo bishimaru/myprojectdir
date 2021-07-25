@@ -16,6 +16,12 @@
                 <a href="{% url 'list:store_name' %}">{{ item.store_name }}</a>
                 {% endfor %}
             </li>
+            <li class="breadcrumb-item active">
+
+                {% for item in object_list|slice:"0:1"%}
+                {{ item.date }}
+                {% endfor %}
+            </li>
 
         </ol>
         <!--ページタイトル-->
@@ -34,7 +40,7 @@
 
                                 <th class="text-center">日付</th>
 
-                                <th class="text-center">総差枚数</th>
+                                <!-- <th class="text-center">総差枚数</th> -->
                             </tr>
 
                         </thead>
@@ -48,13 +54,14 @@
 
                                 <td class="text-center" width="140">
                                     <a
-                                        href="{% url 'list:name' %}?sn={{ item.store_name }}&date={{ item.date|date:'Y-m-d' }}">
-                                        {{ item.date }}
+                                        href="{% url 'list:detail' %}?sn={{ item.store_name }}&date={{ item.date|date:'Y-m-d' }}&name={{ item.name}}">
+                                        {{ item.name }}
                                     </a>
                                 </td>
-                                <td class="text-center" width="140">
-                                    {{ item.totalpay }}
-                                </td>
+
+                                <!-- <td class="text-center" width="140">
+                                    {{ test }}
+                                </td> -->
 
                             </tr>
                             {% endfor %}

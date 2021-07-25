@@ -26,3 +26,17 @@ class SlotData(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class TotalPay(models.Model):
+    class Meta:
+        db_table = 'totalpay'
+        verbose_name = "差枚数"
+        verbose_name_plural = '差枚数'
+
+    store_name = models.CharField(max_length=100, verbose_name='店舗名')
+    date = models.DateField(verbose_name='日付', default=timezone.now)
+    totalpay = models.IntegerField(verbose_name='総差枚数')
+
+    def __str__(self):
+        return self.store_name
