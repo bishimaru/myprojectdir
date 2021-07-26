@@ -44,7 +44,7 @@ def get_data(url):
 
     get_data = soup.find_all("div", id="sea01")
     # get_data[0]=今日, get_data[1]=昨日
-    get_data = get_data[2]
+    get_data = get_data[0]
     get_td = get_data.find_all("td")
 
     list["BB"] = (int)(get_td[0].text)
@@ -63,7 +63,7 @@ def get_graph_img(url):
     response = requests.get(url)
     soup = BeautifulSoup(response.content, 'html.parser')
     # グラフ画像を特定する(graph00=今日, graph01=昨日)
-    get_graph = soup.find("div", id="graph02")
+    get_graph = soup.find("div", id="graph00")
     get_img = get_graph.find("img").get("src")
     # グラフ画像を開く
     img = requests.get(get_img)
@@ -137,7 +137,7 @@ class Command(BaseCommand):
         # print(scale_number('/Users/yamamotokenta/Documents/Pictures/エクスアリーナ東京グラフ画像.gif'))
         total = 0
         now = datetime.datetime.now()
-        yesterday = now - datetime.timedelta(days=2)
+        yesterday = now - datetime.timedelta(days=1)
         for i in range(650, 1200):
 
             # urlを取得
@@ -165,7 +165,7 @@ class Command(BaseCommand):
                     store_name='エクスアリーナ東京',
                     name=data['name'],
                     number=data['number'],
-                    date=yesterday,
+                    date=now,
                     bigbonus=data['BB'],
                     regularbonus=data['RB'],
                     count=data['totalgame'],
@@ -180,7 +180,7 @@ class Command(BaseCommand):
                 d.save()
         p = TotalPay(
             store_name='エクスアリーナ東京',
-            date=yesterday,
+            date=now,
             totalpay=total
         )
         p.save()
