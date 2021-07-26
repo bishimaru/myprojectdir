@@ -4,7 +4,7 @@ from django.shortcuts import render
 from django.views.generic import CreateView, ListView, UpdateView, DeleteView
 from django.views.generic.base import TemplateView
 from .models import SlotData, TotalPay
-from django.db.models import Sum
+from django.db.models import Sum, Avg
 import datetime
 
 
@@ -29,21 +29,10 @@ class DateView(ListView):
     model = TotalPay
     template_name = 'date.html'
 
-    # def get_context_data(self):
-    #     context = super().get_context_data()
-    #     name = self.request.GET.get('sn')
-    #     now = datetime.datetime.now()
-    #     yesterday = now - datetime.timedelta(days=1)
-    #     totalpay = SlotData.objects.filter(
-    #         store_name='エクスアリーナ東京', date=yesterday).aggregate(Sum('payout'))
-    #     totalpay = totalpay['payout__sum']
-    #     context['payout'] = totalpay
-    #     return context
-
     def queryset(self):
-        name = self.request.GET.get('sn')
+        store_name = self.request.GET.get('sn')
         dates = TotalPay.objects.filter(
-            store_name=name).distinct()
+            store_name=store_name).distinct()
         dates = dates.order_by('-date')
         return dates
 
@@ -64,23 +53,15 @@ class NameView(ListView):
         return names
 
     # def get_context_data(self):
-    #     global names
+
     #     store_name = self.request.GET.get('sn')
     #     date = self.request.GET.get('date')
     #     context = super().get_context_data()
-    #     l = []
-    #     for i in names:
-    #         l.append(i)
+    #     cnt = SlotData.objects.filter(
+    #         store_name=store_name, date=date,
+    #     ).distinct().values('name').count()
 
-    #     get = []
-    #     for i in range(len(l)):
-
-    #         totalpay = SlotData.objects.filter(
-    #             store_name=store_name, date=date, name=l[i]['name']).aggregate(Sum('payout'))
-    #         totalpay = totalpay['payout__sum']
-    #         get.append(totalpay)
-
-    #     context['test'] = totalpay
+    #     context['cnt'] = cnt
     #     return context
 
 
@@ -92,9 +73,29 @@ class DetailView(ListView):
         store_name = self.request.GET.get('sn')
         day = self.request.GET.get('date')
         name = self.request.GET.get('name')
-
-        # d = (str)(date)
-        # dte = datetime.datetime.strptime(d, '%Y%m%d')
         dates = SlotData.objects.filter(
             store_name=store_name, date=day, name=name)
         return dates
+
+    def get_context_data(self):
+        context = super().get_context_data()
+        store_name = self.request.GET.get('sn')
+        date = self.request.GET.get('date')
+        name = self.request.GET.get('name')
+
+        totalpay = SlotData.objects.filter(
+            store_name=store_name, date=date, name=name).aggregate(Sum('payout'))
+        totalpay = totalpay['payout__sum']
+
+        avgpay = SlotData.objects.filter(
+            store_name=store_name, date=date, name=name).aggregate(Avg('payout'))
+        avgpay = (int)(avgpay['payout__avg'])
+
+        avgcount = SlotData.objects.filter(
+            store_name=store_name, date=date, name=name).aggregate(Avg('count'))
+        avgcount = (int)(avgcount['count__avg'])
+
+        context['tp'] = totalpay
+        context['ap'] = avgpay
+        context['ac'] = avgcount
+        return context
