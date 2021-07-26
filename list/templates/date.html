@@ -49,7 +49,7 @@
                                 <td class="text-center" width="140">
                                     <a
                                         href="{% url 'list:name' %}?sn={{ item.store_name }}&date={{ item.date|date:'Y-m-d' }}">
-                                        {{ item.date }}
+                                        {{ item.date }}, {{ item.date | date:"l"}}
                                     </a>
                                 </td>
                                 <td class="text-center" width="140">

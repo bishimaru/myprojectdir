@@ -20,6 +20,7 @@ class StoreNameView(ListView):
     template_name = 'store_name.html'
 
     # SlotDataの全データを取得するメソッドを定義
+
     def queryset(self):
         return SlotData.objects.all().distinct().values("store_name")
 
@@ -31,8 +32,10 @@ class DateView(ListView):
     # def get_context_data(self):
     #     context = super().get_context_data()
     #     name = self.request.GET.get('sn')
+    #     now = datetime.datetime.now()
+    #     yesterday = now - datetime.timedelta(days=1)
     #     totalpay = SlotData.objects.filter(
-    #         store_name=name).aggregate(Sum('payout'))
+    #         store_name='エクスアリーナ東京', date=yesterday).aggregate(Sum('payout'))
     #     totalpay = totalpay['payout__sum']
     #     context['payout'] = totalpay
     #     return context
@@ -41,6 +44,7 @@ class DateView(ListView):
         name = self.request.GET.get('sn')
         dates = TotalPay.objects.filter(
             store_name=name).distinct()
+        dates = dates.order_by('-date')
         return dates
 
 
