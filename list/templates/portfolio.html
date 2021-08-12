@@ -1,0 +1,92 @@
+{% extends 'portfoliobase.html' %}
+{% load static %}
+{% block main %}
+<header class="header">
+    <div class="container">
+        <div class="text-center">
+            <div class="mb-4">
+                <img src="{% static 'assets/img/jibun.jpg' %}" height="180" width="180" class="rounded-circle" alt="">
+            </div>
+            <div>
+                <h2 class="text-dark header-title">{{ profile.name }}</h2>
+                <div>
+                    {% if profile.career %}
+                    <span>{{ profile.career }}</span>
+                    {% endif %}
+                    <span>/</span>
+                    <span>{{ profile.org }}</span>
+                    <span>/</span>
+                </div>
+                <div>
+                    <a href="{{ profile.twitter }}" target="_blank"><i class="fab fa-twitter text-twitter"></i></a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-9 mx-auto">
+                    <div class="bg-light py-4">
+                        <div class="container text-start">
+                            <p class="lead">
+                                {{ profile.introduction|safe|linebreaksbr }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</header>
+<section>
+    <div class="container">
+        <div>
+            <h3 class="display-4 fw-bold text-primary">
+                SKILLS
+            </h3>
+            <div class="row">
+                <div class="col-md-10 mx-auto py-4">
+                    <table class="table table-bordered">
+                        {% for skill in skills %}
+                        <tr>
+                            <td class="h4 fw-bold">{{ skill.name }}</td>
+                            <td><span class="badge bg-primary">{{ skill.years_rounded }}年</span></td>
+                            <td>{{ skill.description.text }}</td>
+                        </tr>
+
+                        {% endfor %}
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+<br>
+<br>
+<section>
+    <div class="container">
+        <div>
+            <h3 class="display-4 fw-bold text-primary mb-4">
+                WORKS
+            </h3>
+            <div class="row">
+                {% for work in works %}
+                <div class="col-6 col-lg-4">
+                    <a href="{{ work.url }}" target="_blank">
+                        <div class="card shadow">
+                            <div>
+                                <img src="{{ work.image.url }}" alt="" class="w-100 img-center-cover">
+                            </div>
+                            <div>
+                                <h5 class="text-dark p-2">{{ work.title }}</h5>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+</section>
+
+{% endblock %}

@@ -8,13 +8,15 @@
             <li class="breadcrumb-item">
 
             </li>
-            <li class="breadcrumb-item active"><a href="{% url 'list:store_name' %}">TOP</a></li>
+            <li class="breadcrumb-item active"><a href="{% url 'list:index' %}">TOP</a></li>
 
             <li class="breadcrumb-item active">
 
                 {% for item in object_list|slice:"0:1"%}
                 <a href="{% url 'list:store_name' %}">{{ item.store_name }}</a>
                 {% endfor %}
+            </li>
+            <li>月日
             </li>
 
         </ol>

@@ -22,6 +22,7 @@ ALLOWED_HOSTS = [
     '118.27.117.87',
     'localhost',
     '127.0.0.1',
+    'bishi.xyz',
 ]
 
 
@@ -38,6 +39,7 @@ INSTALLED_APPS = [
     'bootstrap4',
     'bootstrapform',
     'django_crontab',
+    'portfolio',
 ]
 
 MIDDLEWARE = [

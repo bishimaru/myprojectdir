@@ -1,0 +1,14 @@
+.header{
+    padding: 100px 8px
+}
+.header-title{
+    letter-spacing: 1.5px;
+}
+.text-twitter{
+    color: #00acee;
+    font-size: 28px;
+    padding: 8px 0px;
+}
+.mb-100{
+    margin-bottom: 100px;
+}
