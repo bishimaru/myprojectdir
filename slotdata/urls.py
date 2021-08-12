@@ -8,4 +8,4 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('list.urls')),
     path('portfolio/', include('portfolio.urls')),
-] + static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS)
+] + static(settings.STATIC_URL, document_root=settings.STATICFILES_DIRS) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
