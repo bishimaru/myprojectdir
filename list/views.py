@@ -4,8 +4,9 @@ from django.shortcuts import render
 from django.views.generic import CreateView, ListView, UpdateView, DeleteView
 from django.views.generic.base import TemplateView
 from .models import SlotData, TotalPay
-from django.db.models import Sum, Avg
+from django.db.models import Sum, Avg, aggregates
 import datetime
+from django.db.models import Count, OuterRef, Subquery
 
 
 class IndexView(TemplateView):
@@ -40,29 +41,68 @@ class DateView(ListView):
 class NameView(ListView):
     model = SlotData
     template_name = 'name.html'
+    context_object_name = 'name_cnt'
 
-    names = []
+    def get_context_data(self, **kwargs):
+        store_name = self.request.GET.get('sn')
+        date = self.request.GET.get('date')
+        context = super().get_context_data(**kwargs)
+
+        nm = SlotData.objects.filter(
+            store_name=store_name, date=date,).distinct().values('name')
+        name_cnt = {}
+        avarage = []
+        name_pay = []
+
+        for n in nm:
+            cnt = SlotData.objects.filter(
+                store_name=store_name, date=date, name=n['name']).values('name').count()
+            name_cnt[n['name']] = cnt
+        n_c = sorted(name_cnt.items(), key=lambda x: x[1], reverse=True)
+
+        for n in n_c:
+
+            ava = SlotData.objects.filter(
+                store_name=store_name, date=date, name=n[0]).aggregate(Avg('count'))
+            ava = int(ava['count__avg'])
+            avarage.append(ava)
+
+            py = SlotData.objects.filter(
+                store_name=store_name, date=date, name=n[0]).aggregate(Sum('payout'))
+            py = int(py['payout__sum'])
+            name_pay.append(py)
+
+        context.update({
+            'name_cnt': n_c,
+            'store_name': store_name,
+            'date': date,
+            'avg': avarage,
+            'py': name_pay
+        })
+        return context
 
     def get_queryset(self):
         store_name = self.request.GET.get('sn')
         date = self.request.GET.get('date')
-        global names
+
+        a = SlotData.objects.filter(
+            store_name=store_name, date=date).annotate(name_count=Avg('name'))
         names = SlotData.objects.filter(
             store_name=store_name, date=date,).distinct().values('store_name', 'name', 'date')
 
         return names
 
-    # def get_context_data(self):
+        # def get_context_data(self):
 
-    #     store_name = self.request.GET.get('sn')
-    #     date = self.request.GET.get('date')
-    #     context = super().get_context_data()
-    #     cnt = SlotData.objects.filter(
-    #         store_name=store_name, date=date,
-    #     ).distinct().values('name').count()
+        # store_name = self.request.GET.get('sn')
+        # date = self.request.GET.get('date')
+        # context = super().get_context_data()
+        # cnt = SlotData.objects.filter(
+        #     store_name=store_name, date=date,
+        # ).distinct().values('name').count()
 
-    #     context['cnt'] = cnt
-    #     return context
+        # context['cnt'] = cnt
+        # return context
 
 
 class DetailView(ListView):

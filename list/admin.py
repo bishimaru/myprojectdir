@@ -1,5 +1,6 @@
 from django.contrib import admin
 from .models import SlotData, TotalPay
+from django.http.request import HttpRequest
 
 
 class SlotDataAdmin(admin.ModelAdmin):
