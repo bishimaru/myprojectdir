@@ -70,11 +70,11 @@
             </h3>
             <div class="row">
                 {% for work in works %}
-                <div class="col-6 col-lg-4">
+                <div class="col-6 col-lg-4 mb-4">
                     <a href="{{ work.url }}" target="_blank">
-                        <div class="card shadow">
+                        <div class="card shadow ">
                             <div>
-                                <img src="{{ work.image.url }}" alt="" class="w-100 img-center-cover">
+                                <img src="{{ work.image.url }}" alt="" height='200' class="w-100 img-center-cover">
                             </div>
                             <div>
                                 <h5 class="text-dark p-2">{{ work.title }}</h5>
