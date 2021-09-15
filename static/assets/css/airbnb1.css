@@ -1,0 +1,84 @@
+body{
+    color:#333;
+    font-family:verdana, sans-serif;
+    margin: 0px;
+  
+    }
+    header{
+      background-color: #efefef;
+      padding-top: 32px;
+      padding-bottom: 32px;
+    }
+    .uenoyatu{
+      /* background-color: cyan; */
+      width:400px;
+      margin-left:auto;
+      margin-right:auto;
+      display:flex;
+      /* align-items: center; 縲邵ｦ譁ｹ蜷代↓荳ｭ螟ｮ謠�∴*/
+      align-items: center;
+    }
+    .icon{
+      /* background-color: darkcyan; */
+  
+    }
+    .icon img{
+      /* border-radius: 逕ｻ蜒上ｒ荳ｸ縺上☆繧�; */
+      border-radius: 50%;
+      /* border-width:荳ｸ縺ｮ蟷�ｒ險ｭ螳� ; */
+      border-width: 4px;
+      /* border-style: 邱壹�遞ｮ鬘� ; */
+      border-style:solid;
+      border-color: white;
+    }
+    .prof{
+      /* background-color: darkkhaki; */
+      margin-left:32px;
+      
+    }
+    .prof h1{
+      font-weight:normal;
+      font-size: 24px;
+      margin:0;
+  
+    }
+    .prof p{
+      margin:0 0 16 0;
+    }
+    .prof ul{
+      margin:0;
+      padding:0;
+      display:flex;
+    }
+    .prof li{
+      list-style: none;
+      margin-right: 8px;
+    }
+  
+    .works{
+      width:400px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .works  > h1{
+      /* text-align: center; 繝�く繧ｹ繝医�陦後ｒ蛻ｶ蠕｡縺吶ｋ center縺ｯ繝�く繧ｹ繝医ｒ荳ｭ螟ｮ謠�∴*/
+      text-align: center;
+      margin-top:60px;
+      margin-bottom:60px;
+    }
+  
+    .works > section{
+      margin-bottom: 60px;
+  
+    }
+    .works p{
+      /* line-height:1.8;縲繝�く繧ｹ繝医�陦碁俣繧呈枚蟄励し繧､繧ｺ縺ｮ��.�伜阪↓謖�ｮ� */
+      line-height: 1.8;
+    }
+  
+    footer p{
+      text-align: center;
+      margin-bottom: 60px;
+      color: gray;
+  
+    }

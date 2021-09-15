@@ -10,4 +10,5 @@ urlpatterns = [
     path('detail', views.DetailView.as_view(), name='detail'),
     path('name', views.NameView.as_view(), name='name'),
 
+
 ]

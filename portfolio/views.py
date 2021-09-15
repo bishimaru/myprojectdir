@@ -12,3 +12,11 @@ def index(request):
         'works': works,
     }
     return render(request, 'portfolio.html', context)
+
+
+def airbnb1index(request):
+    return render(request, 'airbnb1.html')
+
+
+def airbnb2index(request):
+    return render(request, 'airbnb2.html')

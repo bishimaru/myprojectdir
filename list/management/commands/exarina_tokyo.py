@@ -131,10 +131,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
 
-        # self.stdout.write('hehehe!')
-        # print(title)
-        # print(number)
-        # print(scale_number('/Users/yamamotokenta/Documents/Pictures/エクスアリーナ東京グラフ画像.gif'))
+        
         total = 0
         now = datetime.datetime.now()
         yesterday = now - datetime.timedelta(days=1)
