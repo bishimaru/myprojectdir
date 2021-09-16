@@ -53,6 +53,7 @@ class Work(models.Model):
     image = models.ImageField('イメージ', upload_to='works')
     url = models.URLField('URL')
     published = models.DateField('公開日', null=True, blank=True)
+    describe = models.CharField('説明', max_length=100)
 
     def __str__(self):
         return self.title
