@@ -26,6 +26,16 @@ class StoreNameView(ListView):
         return SlotData.objects.all().distinct().values("store_name")
 
 
+class AllDisplayView(ListView):
+    model = SlotData
+    template_name = 'all_display.html'
+
+    def queryset(self):
+        store_name = self.request.GET.get('sn')
+        all = SlotData.objects.filter(store_name=store_name)
+        return all
+
+
 class DateView(ListView):
     model = TotalPay
     template_name = 'date.html'

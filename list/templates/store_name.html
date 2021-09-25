@@ -24,9 +24,8 @@
                         <thead>
                             <tr>
                                 <th class="text-center">店舗一覧</th>
-                                <!-- <th class="text-center">カテゴリ</th>
-                                <th class="text-center">金額</th>
-                                <th class="text-center">メモ</th> -->
+                                <th class="text-center">All display</th>
+
                             </tr>
                         </thead>
                         　
@@ -37,11 +36,14 @@
                             {% for item in object_list %}
                             <tr class="odd gradeX text-center">
 
-                                <td class="text-center" width="100"><a
-                                        href="{% url 'list:date' %}?sn={{ item.store_name }}">
+                                <td class="text-center"><a href="{% url 'list:date' %}?sn={{ item.store_name }}">
                                         {{ item.store_name}}
                                     </a></td>
-
+                                <td class="text-center" width=100>
+                                    <a href="{% url 'list:all_display' %}?sn={{ item.store_name }}">
+                                        @
+                                    </a>
+                                </td>
                                 <!-- <td class="text-center" width="100">{{ item.name }}</td>
                                 <td class="text-center" width="140">{{ item.number }}</td>
                                 <td class="text-center" width="140">{{ item.date }}</td> -->
