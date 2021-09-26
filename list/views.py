@@ -26,6 +26,18 @@ class StoreNameView(ListView):
         return SlotData.objects.all().distinct().values("store_name")
 
 
+class Vue(TemplateView):
+    template_name = 'vue.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['message'] = 'hello world'
+        return context
+
+
+vue = Vue.as_view()
+
+
 class AllDisplayView(ListView):
     model = SlotData
     template_name = 'all_display.html'

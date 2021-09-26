@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+<div id="app">
+    <h2>v{ message }</h2>
+</div>
+{% endblock %}
+<p>iiiiii</p>
+{% block js %}
+<script>
+    new Vue({
+        delimiters: ['v{', '}'],
+        el: '#app',
+        data: {
+            message: '{{ message }}'
+        },
+    })
+</script>
+{% endblock %}

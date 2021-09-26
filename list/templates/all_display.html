@@ -3,7 +3,6 @@
 {% block content %}
 <div class="content-wrapper">
     <div class="container-fluid">
-        <!-- パンくずリストの設定-->
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
 
@@ -25,21 +24,22 @@
             </li>
 
         </ol>
-        <!--ページタイトル-->
         <div class="card mb-3">
             <div class="card-header">
                 <h3><b>パチスロデータアプリ</b></h3>
 
             </div>
             <div class="card-body">
-                <!-- テーブル表の定義 -->
+
                 <div class="table-responsive">
 
+                    <form action="" method="get">
+                        <input name="query" value="{{ request.GET.query }}" type="text">
+                        <button type="submit">検索する</button>
+                    </form>
 
-                    <!-- ここまでがテーブル表の定義 -->
-                    <table id=all_display width="100%" class="table table-striped table-bordered table-hover">
+                    <table width="100%" class="table table-striped table-bordered table-hover">
                         　
-                        <!-- 表の列の定義-->
 
                         <thead>
 
@@ -57,35 +57,25 @@
                             </tr>
                         </thead>
                         　
-                        <!-- ここまでが表の列の定義-->
-                        　
-                        <!-- 表のデータ部分の表示-->
+
                         <tbody>
                             {% for item in object_list %}
                             <tr class="odd gradeX text-center">
 
                                 <td class="text-center" width="100">{{ item.date }}</td>
                                 <td class="text-center" width="100">{{ item.name }}</td>
-                                <td class="text-center" width="100">
-                                    {{ item.number}}
-                                </td>
-
-
-                                <td class="text-truncate text-center" width="140">{{ item.bigbonus }}
-
-                                </td>
+                                <td class="text-center" width="100"> {{ item.number}</td>
+                                <td class="text-truncate text-center" width="140">{{ item.bigbonus }}</td>
                                 <td class="text-center" width="140">{{ item.regularbonus }}</td>
                                 <td class="text-center" width="100">{{ item.count }}</td>
                                 <td class="text-center" width="140">{{ item.payout }}</td>
-                                <!-- <td class="text-center" width="140">{{ item.memo }}</td> -->
                             </tr>
                             {% endfor %}
 
                         </tbody>
                         　
-                        <!-- ここまでが表のデータ部分の表示-->
+
                     </table>
-                    <!-- ここまでがテーブル表の定義 -->
                 </div>
             </div>
         </div>

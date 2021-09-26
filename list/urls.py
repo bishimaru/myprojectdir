@@ -10,6 +10,7 @@ urlpatterns = [
     path('detail', views.DetailView.as_view(), name='detail'),
     path('name', views.NameView.as_view(), name='name'),
     path('all_display', views.AllDisplayView.as_view(), name='all_display'),
+    path('vue', views.vue, name='vue'),
 
 
 
